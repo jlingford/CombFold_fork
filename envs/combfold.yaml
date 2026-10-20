@@ -1,0 +1,12 @@
+name: combfold
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - gemmi
+  - numpy
+  - polars
+  # C++ assembler build
+  - libboost-devel
+  - cxx-compiler
+  - make

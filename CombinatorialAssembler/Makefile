@@ -1,5 +1,7 @@
-BOOST_INCLUDE = /opt/homebrew/include
-BOOST_LIB = /opt/homebrew/lib/
+# Boost location: defaults to the active micromamba/conda env; override with e.g.
+# `make BOOST_INCLUDE=/opt/homebrew/include BOOST_LIB=/opt/homebrew/lib`
+BOOST_INCLUDE ?= $(CONDA_PREFIX)/include
+BOOST_LIB ?= $(CONDA_PREFIX)/lib
 
 CC=g++
 # use -Wno-deprecated-declarations to suppress warnings from boost
@@ -20,10 +22,10 @@ OBJECTS_AF2TRANS = $(SOURCES_AF2TRANS:.cc=.o)
 all: MainCombAssemble MainAf2trans
 
 MainCombAssemble: libgamb.a libdocklib.a $(OBJECTS_MAIN)
-	$(CC) $(OBJECTS_MAIN) -L. -L$(BOOST_LIB) -lgamb -ldocklib -lboost_program_options -lpthread -o CombinatorialAssembler.out 
+	$(CC) $(OBJECTS_MAIN) -L. -L$(BOOST_LIB) -lgamb -ldocklib -lboost_program_options -lpthread -Wl,-rpath,$(BOOST_LIB) -o CombinatorialAssembler.out 
 
 MainAf2trans: libgamb.a libdocklib.a $(OBJECTS_AF2TRANS)
-	$(CC) $(OBJECTS_AF2TRANS) -L. -L$(BOOST_LIB) -lgamb -ldocklib -lboost_program_options -lpthread -o AF2trans.out 
+	$(CC) $(OBJECTS_AF2TRANS) -L. -L$(BOOST_LIB) -lgamb -ldocklib -lboost_program_options -lpthread -Wl,-rpath,$(BOOST_LIB) -o AF2trans.out 
 
 %.o: %.cc
 	$(CC) $(CFLAGS) $< -o $@

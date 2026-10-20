@@ -35,4 +35,6 @@
 .DS_Store
 CombinatorialAssembler/.vscode/*
 */.idea/*
-paper_resources/figures/output
+
+# Python
+__pycache__/
