@@ -38,3 +38,6 @@ CombinatorialAssembler/.vscode/*
 
 # Python
 __pycache__/
+
+# tests
+tests/*
