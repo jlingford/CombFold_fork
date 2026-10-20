@@ -115,10 +115,10 @@ def build_pair_tasks(subunits: list[Subunit], structures: dict[Path, gemmi.Struc
             for (s1, r1, p1), (s2, r2, p2) in combinations(members, 2)]
 
 
-def extract_transformations(subunits: list[Subunit], structures: dict[Path, gemmi.Structure], work_dir: Path,
+def extract_transformations(subunits: list[Subunit], structures: dict[Path, gemmi.Structure], cache_dir: Path,
                             af2trans_bin: Path, threads: int) -> list[Transformation]:
-    rep_dir = work_dir / "assembly"
-    sample_dir = work_dir / "samples"
+    rep_dir = cache_dir / "assembly"
+    sample_dir = cache_dir / "samples"
     sample_dir.mkdir(parents=True, exist_ok=True)
     tasks = build_pair_tasks(subunits, structures, sample_dir)
     log.info("Extracting %d pairwise transformations with %d threads", len(tasks), threads)

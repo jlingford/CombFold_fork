@@ -104,7 +104,7 @@ def parse_res(path: Path) -> pl.DataFrame:
         row["size"] = int(row["size"])
         row["transforms"] = rest.split("]", 1)[0]
         rows.append(row)
-    return pl.DataFrame(rows).with_row_index("rank", offset=1)
+    return pl.DataFrame(rows).with_row_index("rank")
 
 
 def parse_transforms(transforms: str) -> list[tuple[int, list[float]]]:

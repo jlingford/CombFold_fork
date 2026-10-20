@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble a complex from overlapping sub-complex predictions, given a subunits.json.
 
-Writes models/model_<rank>.cif, scores.tsv, transformations.tsv and subunits.tsv; intermediate files go to work/.
+Writes combfold_model_<rank>.cif and combfold_scores.tsv; other tables and intermediate files go to cache/.
 """
 
 import argparse
