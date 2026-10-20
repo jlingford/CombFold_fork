@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Detect the subunits (unique protein chains) shared across overlapping sub-complex predictions.
 
-Writes subunits.json (CombFold schema, hand-editable, input of assemble.py) and cache/combfold_subunits.tsv.
+Writes cache/subunits.json (CombFold schema, hand-editable, input of assemble.py) and cache/combfold_subunits.tsv.
 """
 
 import argparse

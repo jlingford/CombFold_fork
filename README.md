@@ -39,8 +39,8 @@ interface pLDDT, and the assembler chooses among them.
 
 ```bash
 python scripts/detect_subunits.py inputs/*.cif -o out/ [--names names.fasta]
-# optional: edit out/subunits.json (names, chain IDs)
-python scripts/assemble.py inputs/*.cif -s out/subunits.json -o out/
+# optional: edit out/cache/subunits.json (names, chain IDs)
+python scripts/assemble.py inputs/*.cif -s out/cache/subunits.json -o out/
 ```
 
 ### Useful options
@@ -49,7 +49,7 @@ python scripts/assemble.py inputs/*.cif -s out/subunits.json -o out/
   becomes the name; the default names are `S1`, `S2`, …
 - `--crosslinks xl.txt`: distance restraints, one per line, in the form
   `res1 chain1 res2 chain2 [minDist] maxDist [weight]`. Chain IDs are the
-  detected ones (see `subunits.json`), and residues are numbered from 1 within
+  detected ones (see `cache/subunits.json`), and residues are numbered from 1 within
   each chain.
 - `--top-n`: how many models to write.
 - Assembler parameters: `--trans-num`, `--best-k`, `--max-backbone-collision`,
@@ -68,7 +68,7 @@ COMBFOLD_ARGS="--names names.fasta" sbatch slurm/combfold_auto.sbatch out/ jobs/
 |---|---|
 | `combfold_model_<rank>.cif` | Assembled models, best first (rank 0 = best). B-factors hold the representatives' pLDDT |
 | `combfold_scores.tsv` | One row per model: `weightedTransScore` (the CombFold confidence, roughly the mean interface pLDDT of the transformations used), `transScore` (their sum), `n_subunits_placed`, `backBonePen`, `restraintsRatio` (fraction of crosslinks satisfied) |
-| `subunits.json` | Detected subunits, in the original CombFold schema |
+| `cache/subunits.json` | Detected subunits, in the original CombFold schema |
 | `cache/combfold_subunits.tsv` | Each occurrence of each subunit: source file and chain, mean pLDDT, and which occurrence is the representative |
 | `cache/combfold_transformations.tsv` | Every pairwise transformation: source file and chains, interface pLDDT, representative superposition RMSDs |
 | `cache/` (rest) | Intermediate files: representative and sample PDBs, transformation files, `chain.list`, raw `.res` output, `output.log` |

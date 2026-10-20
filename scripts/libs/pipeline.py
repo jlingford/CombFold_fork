@@ -13,7 +13,7 @@ from libs.structures import ChainRecord, protein_chains, read_structure
 log = logging.getLogger(__name__)
 
 CACHE = "cache"
-DETECT_OUTPUTS = ["subunits.json", f"{CACHE}/combfold_subunits.tsv"]
+DETECT_OUTPUTS = [f"{CACHE}/subunits.json", f"{CACHE}/combfold_subunits.tsv"]
 # Listed individually so that assemble.py keeps the detection outputs it is run on
 ASSEMBLY_OUTPUTS = ["combfold_scores.tsv", "combfold_model_*.cif", f"{CACHE}/combfold_transformations.tsv",
                     f"{CACHE}/assembly", f"{CACHE}/samples", f"{CACHE}/transformations"]
@@ -43,7 +43,7 @@ def detect(records: list[ChainRecord], out_dir: Path, names_fasta: Path | None) 
     names = su.read_names_fasta(names_fasta) if names_fasta else None
     subunits = su.define_subunits(records, names)
     su.check_connected(subunits, su.cooccurrence_edges(subunits), "shared input structures")
-    su.write_subunits_json(subunits, out_dir / "subunits.json")
+    su.write_subunits_json(subunits, out_dir / CACHE / "subunits.json")
     su.write_subunits_tsv(subunits, out_dir / CACHE / "combfold_subunits.tsv")
     for s in subunits:
         log.info("  %s (chain %s, %d aa) in %d structure(s)", s.name, s.chain_id, len(s.sequence), len(s.occurrences))
